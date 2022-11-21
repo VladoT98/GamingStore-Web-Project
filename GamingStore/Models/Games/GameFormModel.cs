@@ -3,7 +3,7 @@ using GamingStore.Services.Games.Models;
 
 namespace GamingStore.Models.Games
 {
-    public class GameFormModel : IGameModel
+    public class GameFormModel
     {
         [Required]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "The title should be between 5 and 20 characters long.")]

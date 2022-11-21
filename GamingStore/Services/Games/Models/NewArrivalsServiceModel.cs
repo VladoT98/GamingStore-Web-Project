@@ -1,6 +1,6 @@
 ﻿namespace GamingStore.Services.Games.Models
 {
-    public class NewArrivalsServiceModel : IGameModel
+    public class NewArrivalsServiceModel
     {
         public int Id { get; set; }
 

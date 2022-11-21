@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="mt-5" style="width:800px; margin:0 auto;">
+    <div class="card">
+        <div class="card-header text-center">
+            <p class="h1"><b>Contact Us</b></p>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input class="form-control" placeholder="Purchases...">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea class="form-control" rows="4" placeholder="Message..."></textarea>
+                </div>
+                <a asp-controller="Home" asp-action="ContactedResponse" class="btn btn-primary">Send</a>
+            </form>
+        </div>
+    </div>
+</div>

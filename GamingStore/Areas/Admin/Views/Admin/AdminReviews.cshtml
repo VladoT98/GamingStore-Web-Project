@@ -1,0 +1,128 @@
+﻿@model ReviewSearchViewModel
+
+@{
+    ViewData["Title"] = "Reviews Panel";
+}
+
+<h1 class="text-center mb-3">Reviews Panel</h1>
+<form method="get" class="ml-3" autocomplete="off">
+    <div class="row">
+        <div class="form-group mr-2">
+            <label asp-for="SearchByGame"></label>
+            <input asp-for="SearchByGame" class="form-control mb-2" placeholder="Fortnite, Smite, etc...">
+            <input type="submit" class="btn btn-primary mb-3 mt-2" value="Submit" />
+        </div>
+
+        <div class="form-group mr-2">
+            <label asp-for="SearchByUsername"></label>
+            <input asp-for="SearchByUsername" class="form-control mb-2" placeholder="Peter, Walter, etc...">
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Sorting"></label>
+            <select asp-for="Sorting" class="form-control mb-4 mr-5">
+                <option value="0">Recently Added</option>
+                <option value="1">Oldest</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+@if (!Model.Reviews.Any())
+{
+    <h1 class="text-center">No reviews found.</h1>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Game</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var review in Model.Reviews)
+            {
+                <tr>
+                    <td>@review.From</td>
+                    <td>@review.Game</td>
+                    <td>
+                        <div>
+                            <a class="btn btn-danger ml-2" style="float: right"
+                       onclick="return confirm('Are you sure you want to delete the review?')"
+                       asp-controller="Reviews"
+                       asp-action="Delete"
+                       asp-route-id="@review.Id">Delete</a>
+
+                            <a class="btn btn-warning" style="float: right"
+                       asp-controller="Reviews"
+                       asp-action="Edit"
+                       asp-route-id="@review.Id">Edit</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.TotalItems > 5)
+    {
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(!Model.HasPreviousPage ? "d-none" : string.Empty)">
+                    <a class="page-link text-bold hover"
+               asp-action="AdminReviews"
+               asp-route-currentPage="@Model.PreviousPageNumber"
+               asp-route-searchByUsername="@Model.SearchByUsername"
+               asp-route-searchByGame="@Model.SearchByGame"
+               asp-route-sorting="@((int)Model.Sorting)">Previous</a>
+                </li>
+
+                @for (int i = Model.CurrentPage - 3; i < Model.CurrentPage; i++)
+                {
+                    if (i > 0)
+                    {
+                        <li class="page-item">
+                            <a class="page-link hover"
+               asp-action="AdminReviews"
+               asp-route-currentPage="@i"
+               asp-route-searchByUsername="@Model.SearchByUsername"
+               asp-route-searchByGame="@Model.SearchByGame"
+               asp-route-sorting="@((int)Model.Sorting)">@i</a>
+                        </li>
+                    }
+                }
+
+                <li class="page-item active">
+                    <span class="page-link">@Model.CurrentPage</span>
+                </li>
+
+                @for (int i = Model.CurrentPage + 1; i <= Model.CurrentPage + 3; i++)
+                {
+                    if (i <= Model.PagesCount)
+                    {
+                        <li class="page-item">
+                            <a class="page-link hover"
+               asp-action="AdminReviews"
+               asp-route-currentPage="@i"
+               asp-route-searchByUsername="@Model.SearchByUsername"
+               asp-route-searchByGame="@Model.SearchByGame"
+               asp-route-sorting="@((int)Model.Sorting)">@i</a>
+                        </li>
+                    }
+                }
+
+                <li class="page-item @(!Model.HasNextPage ? "d-none" : string.Empty)">
+                    <a class="page-link text-bold hover"
+               asp-action="AdminReviews"
+               asp-route-currentPage="@Model.NextPageNumber"
+               asp-route-searchByUsername="@Model.SearchByUsername"
+               asp-route-searchByGame="@Model.SearchByGame"
+               asp-route-sorting="@((int)Model.Sorting)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    }
+}

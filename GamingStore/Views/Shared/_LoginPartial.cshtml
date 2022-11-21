@@ -1,0 +1,71 @@
+﻿@using GamingStore.Infrastructure.Extensions
+@inject SignInManager<IdentityUser> SignInManager
+@inject ISellerService Sellers
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var userIsSeller = await Sellers.IsUserSeller(User.Id());
+        var isAdmin = User.IsAdmin();
+
+        @if (!isAdmin)
+        {
+            if (!userIsSeller)
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Sellers" asp-action="Become"><b>Become Seller</b></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Games" asp-action="All" asp-route-isMyGames="@true"><b>My Games</b></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Games" asp-action="Add"><b>Add Game</b></a>
+                </li>
+            }
+
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-success" asp-area="" asp-controller="Cart" asp-action="ViewCart"><b>Cart</b></a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="AdminGames"><b>Games</b></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="AdminReviews"><b>Reviews</b></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="AdminBlogs"><b>Blogs</b></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Blogs" asp-action="Create"><b>Create Blog</b></a>
+            </li>
+        }
+
+        <li class="nav-item">
+            <a class="nav-link btn btn-info ml-3" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-danger ml-3">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link btn btn-primary mr-3" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn btn-success" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+    }
+</ul>

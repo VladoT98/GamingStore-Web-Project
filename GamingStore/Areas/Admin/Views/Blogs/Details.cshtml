@@ -1,0 +1,16 @@
+﻿@model Blog
+
+@{
+    ViewData["Title"] = "Blog Details";
+}
+<div class="mt-2" style="width: 1000px; margin: 0 auto;">
+    <div class="card">
+        <div class="card-header text-center">
+            <p class="h1"><b>@Model.Title</b></p>
+        </div>
+        <div class="card-body">
+            <img src="@Model.ImageUrl" width="960" height="540" />
+            <p class="mt-4">@Html.Raw(Model.Content.Replace("\n", "<br />"))</p>
+        </div>
+    </div>
+</div>

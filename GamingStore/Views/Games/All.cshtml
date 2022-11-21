@@ -1,0 +1,55 @@
+﻿@model GameSearchViewModel
+
+@{
+    ViewData["Title"] = "All Games";
+}
+
+<partial name="_SearchGamesPartial" />
+
+@if (!Model.Games.Any())
+{
+    <h2>No games found.</h2>
+}
+else
+{
+    foreach (var game in Model.Games)
+    {
+        <div class="row">
+            <img src="@game.ImageUrl" class="card-img-top col-md-6 mb-4" />
+            <div class="col-md-6 form-group">
+                <h2>@game.Title</h2>
+                <span>by <b>@game.PublisherName</b></span> <br />
+                <span class="mt-1"><b class="text-cyan">Reviews: </b>@game.ReviewsCount</span>
+                <h5 class="text-green mt-2">@(game.Price == 0 || game.Price == null ? "Free" : $"Price: {game.Price}$")</h5>
+                <a class="btn btn-outline-info mt-3"
+           asp-controller="Games"
+           asp-action="Details"
+           asp-route-id="@game.Id"
+           asp-route-isMyGames="@ViewBag.IsMyGames">Details</a>
+                @if (!ViewBag.IsMyGames)
+                {
+                    <a class="btn btn-success mt-3"
+           asp-controller="Cart"
+           asp-action="Add"
+           asp-route-id="@game.Id"
+           asp-route-directAdd="@true">Add to Cart</a>
+                }
+                @if (ViewBag.IsMyGames)
+                {
+                    <a class="btn btn-warning mt-3"
+           asp-controller="Games"
+           asp-action="Edit"
+           asp-route-id="@game.Id">Edit</a>
+
+                    <a class="btn btn-danger mt-3"
+           onclick="return confirm('Are you sure you want to remove the game?')"
+           asp-controller="Games"
+           asp-action="Delete"
+           asp-route-id="@game.Id">Delete</a>
+                }
+            </div>
+        </div>
+    }
+}
+
+<partial name="_GamePagingPartial" />

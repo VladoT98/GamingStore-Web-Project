@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BlogViewModel>
+
+@{
+    ViewData["Title"] = "All Blog Posts";
+}
+
+@foreach (var blog in Model)
+{
+    <div class="mt-2" style="width: 800px; margin: 0 auto;">
+        <div class="card">
+        <div class="card-header text-center">
+            <a class="list-group-item list-group-item-action hover"
+               asp-controller="Blogs"
+               asp-action="Details"
+               asp-route-id="@blog.Id"><b>@blog.Title</b></a>
+        </div>
+            <div class="card-body">
+                <img src="@blog.ImageUrl" width="500" height="250" class="rounded mx-auto d-block"/>
+            </div>
+        </div>
+    </div>
+}

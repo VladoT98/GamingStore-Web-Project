@@ -1,0 +1,69 @@
+﻿@using GamingStore.Infrastructure.Extensions
+@model GameDetailsServiceModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="mt-2" style="width:1000px; margin:0 auto;">
+
+    <partial name="_GameDetailsPartial" />
+
+    @if (!ViewBag.IsMyGames)
+    {
+        @if (!User.IsAdmin())
+        {
+            <div class="card-body">
+                <a class="btn btn-primary" asp-controller="Games" asp-action="Purchased">Buy Now</a>
+                <a class="btn btn-info ml-1"
+           asp-controller="Cart"
+           asp-action="Add"
+           asp-route-id="@Model.Id">Add to Cart</a>
+                <a class="btn btn-outline-success ml-1"
+           asp-controller="Reviews"
+           asp-action="Add"
+           asp-route-id="@Model.Id">Add Review</a>
+            </div>
+        }
+
+        @if (Model.Reviews.Any())
+        {
+            <h1 class="text-center mt-4 mb-3">Reviews</h1>
+            <div class="container">
+                <div class="row">
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="user-image mb-2 mt-3 ml-3"> <img src="@review.ImageUrl" class="rounded-circle" width="70" height="70"> </div>
+                                    </div>
+                                    <span class="font-weight-bold d-block mr-5">@review.From</span>
+                                </div>
+                                <p class="mt-2 ml-2 mr-2"><b>@review.Content</b></p>
+                                @if (User.Id() == review.UserId)
+                                {
+                                    <div class="container mb-2">
+                                        <a class="btn btn-warning"
+                           asp-controller="Reviews"
+                           asp-action="Edit"
+                           asp-route-id="@review.Id">Edit</a>
+                                        <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete the review?')"
+                           asp-controller="Reviews"
+                           asp-action="Delete"
+                           asp-route-id="@review.Id">Delete</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <h1 class="text-center">No reviews yet</h1>
+        }
+    }
+</div>

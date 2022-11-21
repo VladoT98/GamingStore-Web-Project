@@ -1,0 +1,47 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="login-box mt-5" style="width:800px; margin:0 auto;">
+    <div class="card">
+        <div class="card-header text-center">
+            <p class="h1"><b>Log In</b></p>
+        </div>
+        <div class="card-body">
+            <form id="account" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.RememberMe">
+                        <input asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                    <button type="submit" class="btn btn-primary btn-block col-4">Log in</button>
+                </div>
+            </form>
+
+            <p class="mb-1">
+                <a id="forgot-password" asp-page="./ForgotPassword"><b>Forgot your password?</b></a>
+            </p>
+            <p class="mb-0">
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"><b>Register as a new user</b></a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

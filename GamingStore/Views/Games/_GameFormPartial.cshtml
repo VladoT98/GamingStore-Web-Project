@@ -1,0 +1,82 @@
+﻿@model GameFormModel
+
+@{
+    var items = (List<SelectListItem>)ViewBag.Test;
+}
+
+<div class="mt-5" style="width:800px; margin:0 auto;">
+    <div class="card">
+        <div class="card-header text-center">
+            <p id="gameFormTitle" class="h1"><b></b></p>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 offset-md-2">
+                        <form method="post">
+                            <div class="form-group">
+                                <label asp-for="Title"></label>
+                                <input asp-for="Title" class="form-control" placeholder="Fortnite, Smite, etc...">
+                                <span asp-validation-for="Title" class="small text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price"></label>
+                                <input asp-for="Price" class="form-control">
+                                <span asp-validation-for="Price" class="small text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ImageUrl"></label>
+                                <input asp-for="ImageUrl" class="form-control">
+                                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PublisherName"></label>
+                                <input asp-for="PublisherName" class="form-control" />
+                                <span asp-validation-for="PublisherName" class="small text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ReleaseYear"></label>
+                                <input asp-for="ReleaseYear" class="form-control">
+                                <span asp-validation-for="ReleaseYear" class="small text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="IsCrossPlay"></label>
+                                <select asp-for="IsCrossPlay" class="form-control">
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                                <span asp-validation-for="IsCrossPlay" class="small text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="GenreId"></label>
+                                <select asp-for="GenreId" class="form-control">
+                                    @foreach (var genre in Model.Genres)
+                                    {
+                                        <option class="text-dark" value="@genre.Id">@genre.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="GenreId" class="small text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PlatformId"></label>
+                                <select asp-for="PlatformId" class="form-control">
+                                    @foreach (var platform in Model.Platforms)
+                                    {
+                                        <option class="text-dark" value="@platform.Id">@platform.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="PlatformId" class="small text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description"></label>
+                                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                                <span asp-validation-for="Description" class="small text-danger"></span>
+                            </div>
+                            <input class="btn btn-primary" type="submit" value="Save" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

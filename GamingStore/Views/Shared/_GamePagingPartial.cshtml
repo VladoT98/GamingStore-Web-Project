@@ -1,0 +1,60 @@
+﻿@if (Model.TotalItems > 5)
+{
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(!Model.HasPreviousPage ? "d-none" : string.Empty)">
+            <a class="page-link text-bold hover"
+           asp-action="@(Model.IsAdmin ? "AdminGames": "All")"
+           asp-route-currentPage="@Model.PreviousPageNumber"
+           asp-route-searchByTitle="@Model.SearchByTitle"
+           asp-route-publisher="@Model.Publisher"
+           asp-route-sorting="@((int)Model.Sorting)"
+           asp-route-isMyGames="@ViewBag.IsMyGames">Previous</a>
+        </li>
+
+        @for (int i = Model.CurrentPage - 3; i < Model.CurrentPage; i++)
+        {
+            if (i > 0)
+            {
+                <li class="page-item">
+                    <a class="page-link hover"
+           asp-action="@(Model.IsAdmin ? "AdminGames": "All")"
+           asp-route-currentPage="@i"
+           asp-route-searchByTitle="@Model.SearchByTitle"
+           asp-route-publisher="@Model.Publisher"
+           asp-route-sorting="@((int)Model.Sorting)"
+           asp-route-isMyGames="@ViewBag.IsMyGames">@i</a>
+                </li>
+            }
+        }
+
+        <li class="page-item active">
+            <span class="page-link">@Model.CurrentPage</span>
+        </li>
+
+        @for (int i = Model.CurrentPage + 1; i <= Model.CurrentPage + 3; i++)
+        {
+            if (i <= Model.PagesCount)
+            {
+                <li class="page-item">
+                    <a class="page-link hover"
+           asp-action="@(Model.IsAdmin ? "AdminGames": "All")"
+           asp-route-currentPage="@i"
+           asp-route-searchByTitle="@Model.SearchByTitle"
+           asp-route-publisher="@Model.Publisher"
+           asp-route-sorting="@((int)Model.Sorting)"
+           asp-route-isMyGames="@ViewBag.IsMyGames">@i</a>
+                </li>
+            }
+        }
+
+        <li class="page-item @(!Model.HasNextPage ? "d-none" : string.Empty)">
+            <a class="page-link text-bold hover"
+           asp-action="@(Model.IsAdmin ? "AdminGames": "All")"
+           asp-route-currentPage="@Model.NextPageNumber"
+           asp-route-searchByTitle="@Model.SearchByTitle"
+           asp-route-publisher="@Model.Publisher"
+           asp-route-sorting="@((int)Model.Sorting)"
+           asp-route-isMyGames="@ViewBag.IsMyGames">Next</a>
+        </li>
+    </ul>
+}

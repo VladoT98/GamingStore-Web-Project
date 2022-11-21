@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<h1 class="text-center">About Us</h1>
+
+<h4><b>GamingStore</b> is the virtual supermarket for gaming. With our guarantee and a huge variety of games, you can sit back, relax and buy everything of your choice from us. We offer one of the best prices in all over the world. With an engaged and vocal community of partners and players, our products and our company will continue to change and grow in ways we may never have predicted.</h4>
+
+<h3 class="mt-3">Why choose our services?</h3>
+<ul>
+    <li>Individual treatment to each client</li>
+    <li>Huge variety of games</li>
+    <li>Competitive prices and conditions for shopping</li>
+    <li>Last but not least: We are gamers just like YOU and we know what YOU want!</li>
+</ul>
+
+<p>
+    What are you waiting for?
+    <a class="text-dark" asp-controller="Games"
+       asp-action="All"
+       asp-route-isMyGames="@false"><b>Browse Games</b></a>!
+</p>

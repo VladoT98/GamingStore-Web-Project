@@ -1,0 +1,44 @@
+﻿@model BlogSearchViewModel
+
+@{
+    ViewData["Title"] = "Blogs Panel";
+}
+
+@if (!Model.Blogs.Any())
+{
+    <h1 class="text-center">No blogs found.</h1>
+}
+else
+{
+    <h1 class="text-center mb-3">Blogs Panel</h1>
+    <table class="table table-striped">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var blog in Model.Blogs)
+                {
+                    <tr>
+                        <td>@blog.Title</td>
+                        <td>
+                            <div>
+                                <a class="btn btn-danger ml-2" style="float: right"
+                           onclick="return confirm('Are you sure you want to delete the review?')"
+                           asp-controller="Blogs"
+                           asp-action="Delete"
+                           asp-route-id="@blog.Id">Delete</a>
+
+                                <a class="btn btn-warning" style="float: right"
+                           asp-controller="Blogs"
+                           asp-action="Edit"
+                           asp-route-id="@blog.Id">Edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+}

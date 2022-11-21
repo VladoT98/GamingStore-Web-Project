@@ -1,0 +1,18 @@
+﻿<div class="card">
+    <div class="card-header text-center">
+        <p class="h1"><b>@Model.Title</b> (@Model.ReleaseYear)</p>
+    </div>
+    <div class="card-body">
+        <h5 class="text-center">by @Model.PublisherName</h5>
+        <h2 class="text-green text-center">@(Model.Price == 0 || Model.Price == null ? "Free": $"Price: {Model.Price}$")</h2>
+        <img src="@Model.ImageUrl" width="960" height="540" class="mt-2 mb-2" />
+        <div>
+            <h5><b>Genre:</b> @Model.GenreName</h5>
+            <h5>
+                <b>Available on:</b> @Model.PlatformName
+            </h5>
+            <h5><b>Cross Play:</b> @Model.IsCrossPlay</h5>
+            <p align="justify"><b>Description</b>: @Model.Description</p>
+        </div>
+    </div>
+</div>

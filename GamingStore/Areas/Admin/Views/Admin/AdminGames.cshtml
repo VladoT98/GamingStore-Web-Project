@@ -1,0 +1,67 @@
+﻿@model GameSearchViewModel
+
+@{
+    ViewData["Title"] = "Games Panel";
+}
+
+<h1 class="text-center mb-3">Games Panel</h1>
+
+<partial name="_SearchGamesPartial" />
+
+@if (!Model.Games.Any())
+{
+    <h1 class="text-center">No games found.</h1>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Publisher Name</th>
+                <th scope="col">Is Approved</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model.Games)
+            {
+                <tr>
+                    <td>@game.Title</td>
+                    <td>@(game.Price == 0 || game.Price == null ? "Free" : $"{game.Price}$")</td>
+                    <td>@game.PublisherName</td>
+                    <td>@(game.IsApproved ? "Yes": "No")</td>
+                    <td>
+                        <a class="btn btn-outline-info float-right"
+                   asp-controller="Games"
+                   asp-action="Details"
+                   asp-route-id="@game.Id">Details</a>
+
+                        <a class="btn btn-danger float-right mr-2"
+                   onclick="return confirm('Are you sure you want to remove the game?')"
+                   asp-controller="Games"
+                   asp-action="Delete"
+                   asp-route-id="@game.Id">Delete</a>
+
+                        <a class="btn btn-warning float-right mr-2"
+                   asp-controller="Games"
+                   asp-action="Edit"
+                   asp-route-id="@game.Id">Edit</a>
+
+                        @if (!game.IsApproved)
+                        {
+                            <a class="btn btn-success float-right mr-2"
+                   asp-controller="Admin"
+                   asp-action="Approve"
+                   asp-route-id="@game.Id">Approve</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+<partial name="_GamePagingPartial" />

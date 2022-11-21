@@ -1,0 +1,15 @@
+﻿@model GameFormModel
+
+@{
+    ViewData["Title"] = "Add Game";
+}
+
+<partial name="_GameFormPartial" model="@Model" />
+
+<script>
+    document.querySelector('#gameFormTitle').innerHTML = 'Add Game';
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

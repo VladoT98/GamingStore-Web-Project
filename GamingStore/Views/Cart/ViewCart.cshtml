@@ -1,0 +1,47 @@
+﻿@model GamesInCartViewModel
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+@if (Model.Items == null || !Model.Items.Any())
+{
+    <h1>Your cart is empty</h1>
+}
+else
+{
+    <h1 class="text-center">Your Cart</h1>
+    <div class="row">
+        <table class="table table-striped mt-3">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col"><h4 class="ml-3">Image</h4></th>
+                    <th scope="col"><h4>Title</h4></th>
+                    <th scope="col"><h4>Price</h4></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td><img src="@item.Game.ImageUrl" height="65" width="110" /></td>
+                        <td><h5 class="mt-3">@item.Game.Title</h5></td>
+                        <td><h5 class="mt-2 text-green">@(item.Game.Price == 0 || item.Game.Price == null ? "Free" : $"{item.Game.Price}$")</h5></td>
+                        <td>
+                            <a class="btn btn-outline-danger float-right mt-2"
+                       asp-controller="Cart"
+                       asp-action="Remove"
+                       asp-route-id="@item.Game.Id">Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <h1 class="text-center mt-3 text-green">Total: @Model.TotalPrice$</h1>
+    <div class="col text-center">
+        <a class="btn btn-success text-center mt-2 col-8" asp-controller="Cart" asp-action="Checkout">Checkout</a>
+    </div>
+}

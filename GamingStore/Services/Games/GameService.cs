@@ -72,43 +72,6 @@ namespace GamingStore.Services.Games
                 .ProjectTo<GameDetailsServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<GameServiceModel>> GetFilteredGames(string title, string publisher, GameSorting sorting, int currentPage, int gamesPerPage, bool isAdmin, bool isMyGames, string userId)
-        {
-            var gamesQuery = await GetGamesQuery(isMyGames, userId, sorting);
-
-            if (!string.IsNullOrWhiteSpace(title))
-                gamesQuery = gamesQuery
-                    .Where(x => x.Title.ToLower()
-                        .Contains(title.ToLower()));
-
-            if (!string.IsNullOrWhiteSpace(publisher))
-                gamesQuery = gamesQuery
-                    .OrderBy(x => x)
-                    .Where(x => x.Publisher.Name.ToLower() == publisher.ToLower());
-
-            gamesQuery = sorting switch
-            {
-                GameSorting.PriceAscending => gamesQuery.OrderBy(x => x.Price),
-                GameSorting.PriceDescending => gamesQuery.OrderByDescending(x => x.Price),
-                GameSorting.ReleaseYearAscending => gamesQuery.OrderBy(x => x.ReleaseYear),
-                GameSorting.ReleaseYearDescending => gamesQuery.OrderByDescending(x => x.ReleaseYear),
-                GameSorting.TitleAlphabetically => gamesQuery.OrderBy(x => x.Title),
-                GameSorting.ReviewsCount => gamesQuery.OrderByDescending(x => x.Reviews.Count()),
-                GameSorting.FreeGames => gamesQuery.OrderByDescending(x => x.Id),
-                GameSorting.RecentlyAdded or _ => gamesQuery.OrderByDescending(x => x.Id),
-            };
-
-            var result = await gamesQuery
-                .Skip((currentPage - 1) * gamesPerPage)
-                .Take(gamesPerPage)
-                .ProjectTo<GameServiceModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return isAdmin || isMyGames
-                ? result
-                : result.Where(x => x.IsApproved);
-        }
-
         public async Task<GameSearchViewModel> GetFullGameDetails(string searchByTitle, string publisher, GameSorting sorting, int currentPage, int gamesPerPage, bool isAdmin, bool isMyGames, string userId)
         {
             var games = await this
@@ -147,26 +110,6 @@ namespace GamingStore.Services.Games
 
         public async Task<bool> IsPlatformExist(GameFormModel gameFormModel)
             => await this.data.Platforms.AnyAsync(x => x.Id == gameFormModel.PlatformId);
-
-        public async Task<int> GamesCount(string title, string publisher, bool isMyGames, string userId, GameSorting sorting)
-        {
-            var gamesQuery = await GetGamesQuery(isMyGames, userId, sorting);
-
-            if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(publisher))
-            {
-                return await gamesQuery.CountAsync();
-            }
-
-            if (title != null)
-                gamesQuery = gamesQuery
-                    .Where(x => x.Title.ToLower().Contains(title.ToLower()));
-
-            if (publisher != null)
-                gamesQuery = gamesQuery
-                    .Where(x => x.Publisher.Name.ToLower().Contains(publisher.ToLower()));
-
-            return await gamesQuery.CountAsync();
-        }
 
         public Game FindById(int gameId)
             => this.data.Games
@@ -232,6 +175,63 @@ namespace GamingStore.Services.Games
                 gamesQuery = gamesQuery.Where(x => x.Price > 0);
 
             return gamesQuery;
+        }
+
+        private async Task<IEnumerable<GameServiceModel>> GetFilteredGames(string title, string publisher, GameSorting sorting, int currentPage, int gamesPerPage, bool isAdmin, bool isMyGames, string userId)
+        {
+            var gamesQuery = await GetGamesQuery(isMyGames, userId, sorting);
+
+            if (!string.IsNullOrWhiteSpace(title))
+                gamesQuery = gamesQuery
+                    .Where(x => x.Title.ToLower()
+                        .Contains(title.ToLower()));
+
+            if (!string.IsNullOrWhiteSpace(publisher))
+                gamesQuery = gamesQuery
+                    .OrderBy(x => x)
+                    .Where(x => x.Publisher.Name.ToLower() == publisher.ToLower());
+
+            gamesQuery = sorting switch
+            {
+                GameSorting.PriceAscending => gamesQuery.OrderBy(x => x.Price),
+                GameSorting.PriceDescending => gamesQuery.OrderByDescending(x => x.Price),
+                GameSorting.ReleaseYearAscending => gamesQuery.OrderBy(x => x.ReleaseYear),
+                GameSorting.ReleaseYearDescending => gamesQuery.OrderByDescending(x => x.ReleaseYear),
+                GameSorting.TitleAlphabetically => gamesQuery.OrderBy(x => x.Title),
+                GameSorting.ReviewsCount => gamesQuery.OrderByDescending(x => x.Reviews.Count()),
+                GameSorting.FreeGames => gamesQuery.OrderByDescending(x => x.Id),
+                GameSorting.RecentlyAdded or _ => gamesQuery.OrderByDescending(x => x.Id),
+            };
+
+            var result = await gamesQuery
+                .Skip((currentPage - 1) * gamesPerPage)
+                .Take(gamesPerPage)
+                .ProjectTo<GameServiceModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return isAdmin || isMyGames
+                ? result
+                : result.Where(x => x.IsApproved);
+        }
+
+        private async Task<int> GamesCount(string title, string publisher, bool isMyGames, string userId, GameSorting sorting)
+        {
+            var gamesQuery = await GetGamesQuery(isMyGames, userId, sorting);
+
+            if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(publisher))
+            {
+                return await gamesQuery.CountAsync();
+            }
+
+            if (title != null)
+                gamesQuery = gamesQuery
+                    .Where(x => x.Title.ToLower().Contains(title.ToLower()));
+
+            if (publisher != null)
+                gamesQuery = gamesQuery
+                    .Where(x => x.Publisher.Name.ToLower().Contains(publisher.ToLower()));
+
+            return await gamesQuery.CountAsync();
         }
     }
 }

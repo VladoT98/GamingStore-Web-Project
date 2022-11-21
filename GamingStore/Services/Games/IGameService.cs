@@ -7,8 +7,6 @@ namespace GamingStore.Services.Games
 {
     public interface IGameService
     {
-        Task<IEnumerable<GameServiceModel>> GetFilteredGames(string title, string publisher, GameSorting sorting, int currentPage, int gamesPerPage, bool isAdmin, bool isMyGames, string userId);
-
         Task<GameSearchViewModel> GetFullGameDetails(string searchByTitle, string publisher, GameSorting sorting,
             int currentPage, int gamesPerPage, bool isAdmin, bool isMyGames, string userId);
 
@@ -21,8 +19,6 @@ namespace GamingStore.Services.Games
         Task<GameDetailsServiceModel> Details(int gameId);
 
         Game FindById(int gameId);
-
-        Task<int> GamesCount(string title, string publisher, bool isMyGames, string userId, GameSorting sorting);
 
         Task<IEnumerable<GameGenreServiceModel>> GameGenres();
 

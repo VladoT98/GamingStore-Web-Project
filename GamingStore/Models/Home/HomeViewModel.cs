@@ -1,5 +1,5 @@
 ﻿using GamingStore.Areas.Admin.Models;
-using GamingStore.Services.Games.Models;
+using GamingStore.Models.Games;
 
 namespace GamingStore.Models.Home
 {
@@ -7,6 +7,6 @@ namespace GamingStore.Models.Home
     {
         public IEnumerable<BlogViewModel> Blogs { get; set; }
 
-        public IEnumerable<NewArrivalsServiceModel> NewArrivals { get; set; }
+        public IEnumerable<GameBaseModel> NewArrivals { get; set; }
     }
 }

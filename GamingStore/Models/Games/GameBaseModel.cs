@@ -1,10 +1,12 @@
-﻿namespace GamingStore.Services.Games.Models
+﻿namespace GamingStore.Models.Games
 {
-    public class GamesBySellerServiceModel
+    public class GameBaseModel
     {
         public int Id { get; set; }
 
         public string Title { get; init; }
+
+        public decimal? Price { get; set; }
 
         public string PublisherName { get; init; }
 

@@ -14,9 +14,8 @@ namespace GamingStore.Infrastructure
     {
         public MappingProfile()
         {
-            CreateMap<Game, NewArrivalsServiceModel>();
+            CreateMap<Game, GameBaseModel>();
             CreateMap<Game, GameServiceModel>();
-            CreateMap<Game, GamesBySellerServiceModel>();
             CreateMap<Game, GameDetailsServiceModel>()
                 .ForMember(x => x.IsCrossPlay, cfg =>
                     cfg.MapFrom(x => x.IsCrossPlay ? "Yes" : "No"))

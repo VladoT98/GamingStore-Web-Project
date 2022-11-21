@@ -2,9 +2,9 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using GamingStore.Areas.Admin.Models;
-using GamingStore.Services.Games.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using GamingStore.Models.Games;
 
 namespace GamingStore.Services.Home
 {
@@ -22,18 +22,18 @@ namespace GamingStore.Services.Home
             var test = 10;
         }
 
-        public async Task<IEnumerable<NewArrivalsServiceModel>> GetNewArrivals()
+        public async Task<IEnumerable<GameBaseModel>> GetNewArrivals()
         {
             var newArrivalsCacheKey = "NewArrivalsCacheKey";
 
-            var newArrivals = this.cache.Get<List<NewArrivalsServiceModel>>(newArrivalsCacheKey);
+            var newArrivals = this.cache.Get<List<GameBaseModel>>(newArrivalsCacheKey);
 
             if (newArrivals == null)
             {
                 newArrivals = await this.data.Games
                     .Where(x => x.IsApproved)
                     .OrderByDescending(x => x.Id)
-                    .ProjectTo<NewArrivalsServiceModel>(this.mapper.ConfigurationProvider)
+                    .ProjectTo<GameBaseModel>(this.mapper.ConfigurationProvider)
                     .Take(3)
                     .ToListAsync();
 

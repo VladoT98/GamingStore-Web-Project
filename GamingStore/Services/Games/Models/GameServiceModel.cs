@@ -1,18 +1,10 @@
-﻿namespace GamingStore.Services.Games.Models
+﻿using GamingStore.Models.Games;
+
+namespace GamingStore.Services.Games.Models
 {
-    public class GameServiceModel
+    public class GameServiceModel : GameBaseModel
     {
-        public int Id { get; init; }
-
-        public string Title { get; init; }
-
-        public decimal? Price { get; init; }
-
-        public string ImageUrl { get; init; }
-
         public string Description { get; init; }
-
-        public string PublisherName { get; init; }
 
         public bool IsApproved { get; set; }
 

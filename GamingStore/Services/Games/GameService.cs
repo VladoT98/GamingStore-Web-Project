@@ -139,13 +139,7 @@ namespace GamingStore.Services.Games
                         .ProjectTo<T>(this.mapper.ConfigurationProvider)
                         .ToListAsync();
                 }
-                else if (typeof(T) == typeof(GamePublisherServiceModel))
-                {
-                    entities = await this.data.Publishers
-                        .ProjectTo<T>(this.mapper.ConfigurationProvider)
-                        .ToListAsync();
-                }
-                else if (typeof(T) == typeof(GamePlatformServiceModel))
+                else
                 {
                     entities = await this.data.Platforms
                         .ProjectTo<T>(this.mapper.ConfigurationProvider)

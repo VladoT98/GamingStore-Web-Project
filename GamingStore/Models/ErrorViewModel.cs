@@ -4,6 +4,7 @@ namespace GamingStore.Models
     {
         public string RequestId { get; init; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId 
+            => !string.IsNullOrEmpty(RequestId);
     }
 }

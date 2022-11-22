@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GamingStore.Areas.Admin.Controllers;
+using GamingStore.Infrastructure.Enums;
 using GamingStore.Infrastructure.Extensions;
-using GamingStore.Models;
 using GamingStore.Models.Games;
 using GamingStore.Services.Games;
 using GamingStore.Services.Sellers;
@@ -173,8 +173,6 @@ namespace GamingStore.Controllers
 
         [Authorize]
         public IActionResult Purchased()
-        {
-            return View();
-        }
+            => View();
     }
 }

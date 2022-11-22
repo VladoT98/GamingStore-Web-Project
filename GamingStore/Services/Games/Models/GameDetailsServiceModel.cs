@@ -12,16 +12,16 @@ namespace GamingStore.Services.Games.Models
 
         public string GenreName { get; init; }
 
-        public string SellerName { get; set; }
+        public string SellerName { get; init; }
 
-        public string UserId { get; set; }
+        public string UserId { get; init; }
 
-        public int GenreId { get; set; }
+        public int GenreId { get; init; }
 
-        public int PlatformId { get; set; }
+        public int PlatformId { get; init; }
 
-        public int PublisherId { get; set; }
+        public int PublisherId { get; init; }
 
-        public List<ReviewServiceModel> Reviews { get; set; }
+        public List<ReviewServiceModel> Reviews { get; init; }
     }
 }

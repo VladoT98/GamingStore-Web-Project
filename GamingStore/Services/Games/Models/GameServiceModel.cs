@@ -6,8 +6,8 @@ namespace GamingStore.Services.Games.Models
     {
         public string Description { get; init; }
 
-        public bool IsApproved { get; set; }
+        public bool IsApproved { get; init; }
 
-        public int ReviewsCount { get; set; }
+        public int ReviewsCount { get; init; }
     }
 }

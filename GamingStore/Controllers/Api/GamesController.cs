@@ -8,12 +8,12 @@ namespace GamingStore.Controllers.Api
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GamesApiController : ControllerBase
+    public class GamesController : ControllerBase
     {
         private readonly GamingStoreDbContext data;
         private readonly IMapper mapper;
 
-        public GamesApiController(GamingStoreDbContext data, IMapper mapper)
+        public GamesController(GamingStoreDbContext data, IMapper mapper)
         {
             this.data = data;
             this.mapper = mapper;

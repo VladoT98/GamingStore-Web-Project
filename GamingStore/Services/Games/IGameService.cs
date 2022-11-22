@@ -1,5 +1,5 @@
 ﻿using GamingStore.Data.Models;
-using GamingStore.Models;
+using GamingStore.Infrastructure.Enums;
 using GamingStore.Models.Games;
 using GamingStore.Services.Games.Models;
 

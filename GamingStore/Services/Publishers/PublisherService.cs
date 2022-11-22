@@ -10,10 +10,10 @@ namespace GamingStore.Services.Publishers
         private readonly GamingStoreDbContext data;
         private readonly IMapper mapper;
 
-        public PublisherService(IMapper mapper, GamingStoreDbContext data)
+        public PublisherService(GamingStoreDbContext data, IMapper mapper)
         {
-            this.mapper = mapper;
             this.data = data;
+            this.mapper = mapper;
         }
 
         public async Task Register(RegisterPublisherFormModel model)

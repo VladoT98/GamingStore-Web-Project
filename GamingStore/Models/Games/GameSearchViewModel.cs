@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using GamingStore.Infrastructure.Enums;
 using GamingStore.Services.Games.Models;
 
 namespace GamingStore.Models.Games
@@ -13,12 +14,10 @@ namespace GamingStore.Models.Games
 
         public string Publisher { get; init; }
 
-        public int ReviewsCount { get; set; }
-
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; init; }
 
         public IEnumerable<GameServiceModel> Games { get; init; }
 
-        public IEnumerable<string> Publishers { get; set; }
+        public IEnumerable<string> Publishers { get; init; }
     }
 }

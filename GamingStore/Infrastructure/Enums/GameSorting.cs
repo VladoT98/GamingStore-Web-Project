@@ -1,4 +1,4 @@
-﻿namespace GamingStore.Models
+﻿namespace GamingStore.Infrastructure.Enums
 {
     public enum GameSorting
     {

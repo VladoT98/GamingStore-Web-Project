@@ -2,7 +2,7 @@
 {
     public class ReviewServiceModel
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         public string From { get; init; }
 
@@ -10,8 +10,8 @@
 
         public string Content { get; init; }
 
-        public string UserId { get; set; }
+        public string UserId { get; init; }
 
-        public string Game { get; set; }
+        public string Game { get; init; }
     }
 }

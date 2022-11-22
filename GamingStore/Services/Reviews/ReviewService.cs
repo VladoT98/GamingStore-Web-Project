@@ -8,13 +8,13 @@ namespace GamingStore.Services.Reviews
 {
     public class ReviewService : IReviewService
     {
-        private readonly IMapper mapper;
         private readonly GamingStoreDbContext data;
+        private readonly IMapper mapper;
 
-        public ReviewService(IMapper mapper, GamingStoreDbContext data)
+        public ReviewService(GamingStoreDbContext data, IMapper mapper)
         {
-            this.mapper = mapper;
             this.data = data;
+            this.mapper = mapper;
         }
 
         public async Task Add(ReviewFormModel reviewModel, string userId)

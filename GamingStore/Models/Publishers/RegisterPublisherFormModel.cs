@@ -6,10 +6,10 @@ namespace GamingStore.Models.Publishers
     {
         [Required]
         [StringLength(50, MinimumLength = 3)]
-        public string Name { get; set; }
+        public string Name { get; init; }
 
-        public string Description { get; set; }
+        public string Description { get; init; }
 
-        public int? Employees { get; set; }
+        public int? Employees { get; init; }
     }
 }

@@ -2,7 +2,7 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using GamingStore.Data.Models;
-using GamingStore.Models;
+using GamingStore.Infrastructure.Enums;
 using GamingStore.Models.Games;
 using GamingStore.Services.Games.Models;
 using GamingStore.Services.Sellers;
@@ -18,12 +18,12 @@ namespace GamingStore.Services.Games
         private readonly IMapper mapper;
         private readonly IMemoryCache cache;
 
-        public GameService(GamingStoreDbContext data, IMapper mapper, IMemoryCache cache, ISellerService sellerService)
+        public GameService(GamingStoreDbContext data, ISellerService sellerService, IMapper mapper, IMemoryCache cache)
         {
             this.data = data;
+            this.sellerService = sellerService;
             this.mapper = mapper;
             this.cache = cache;
-            this.sellerService = sellerService;
         }
 
         public async Task Delete(Game game)

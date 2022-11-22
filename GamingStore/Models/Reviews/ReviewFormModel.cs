@@ -17,6 +17,6 @@ namespace GamingStore.Models.Reviews
 
         public int GameId { get; set; }
 
-        public bool IsAdd { get; set; }
+        public bool IsAdd { get; init; }
     }
 }

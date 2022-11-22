@@ -19,7 +19,6 @@ namespace GamingStore.Services.Home
             this.data = data;
             this.mapper = mapper;
             this.cache = cache;
-            var test = 10;
         }
 
         public async Task<IEnumerable<GameBaseModel>> GetNewArrivals()

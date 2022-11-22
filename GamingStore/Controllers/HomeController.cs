@@ -12,16 +12,11 @@ namespace GamingStore.Controllers
             => this.homeService = homeService;
 
         public async Task<IActionResult> Index()
-        {
-            var newArrivals = await this.homeService.GetNewArrivals();
-            var blogPosts = await this.homeService.GetBlogPosts();
-
-            var viewModel = new HomeViewModel();
-            viewModel.Blogs = blogPosts;
-            viewModel.NewArrivals = newArrivals;
-
-            return View(viewModel);
-        }
+            => View(new HomeViewModel()
+            {
+                Blogs = await this.homeService.GetBlogPosts(),
+                NewArrivals = await this.homeService.GetNewArrivals()
+            });
 
         public IActionResult Privacy()
             => View();

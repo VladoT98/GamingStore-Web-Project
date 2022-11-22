@@ -20,7 +20,11 @@ namespace GamingStore.Controllers
 
         [Authorize]
         public IActionResult Add(int id)
-            => View(new ReviewFormModel() { GameId = id, IsAdd = true });
+            => View(new ReviewFormModel()
+            {
+                GameId = id,
+                IsAdd = true
+            });
 
         [Authorize]
         [HttpPost]
@@ -82,6 +86,7 @@ namespace GamingStore.Controllers
             if (!ModelState.IsValid) return BadRequest();
 
             var review = await this.reviewService.FindById(id);
+
             var reviewId = review.Id;
 
             var isReviewEdited = await this.reviewService.Edit(reviewFormModel, reviewId);

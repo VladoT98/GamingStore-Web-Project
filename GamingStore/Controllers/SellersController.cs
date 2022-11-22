@@ -14,7 +14,8 @@ namespace GamingStore.Controllers
             => this.sellerService = sellerService;
 
         [Authorize]
-        public IActionResult Become() => View();
+        public IActionResult Become() 
+            => View();
 
         [Authorize]
         [HttpPost]

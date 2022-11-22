@@ -5,8 +5,8 @@ namespace GamingStore.Models.Home
 {
     public class HomeViewModel
     {
-        public IEnumerable<BlogViewModel> Blogs { get; set; }
+        public IEnumerable<BlogViewModel> Blogs { get; init; }
 
-        public IEnumerable<GameBaseModel> NewArrivals { get; set; }
+        public IEnumerable<GameBaseModel> NewArrivals { get; init; }
     }
 }

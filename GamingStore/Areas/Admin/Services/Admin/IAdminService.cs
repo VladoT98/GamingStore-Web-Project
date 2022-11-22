@@ -7,6 +7,6 @@ namespace GamingStore.Areas.Admin.Services.Admin
     {
         IEnumerable<ReviewServiceModel> AdminReviews(string username, string game, ReviewSorting sorting, int currentPage, int reviewsPerPage);
 
-        Task ApproveGame(int id);
+        Task<bool> ApproveGame(int id);
     }
 }

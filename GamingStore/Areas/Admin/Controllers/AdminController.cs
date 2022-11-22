@@ -70,8 +70,12 @@ namespace GamingStore.Areas.Admin.Controllers
 
         public async Task<IActionResult> Approve(int id)
         {
-            await this.adminService.ApproveGame(id);
+            var isApproved = await this.adminService.ApproveGame(id);
+
+            if (!isApproved) return BadRequest();
+
             TempData["GlobalMessageKey"] = "Game approved.";
+
             return RedirectToAction(nameof(AdminGames));
         }
     }

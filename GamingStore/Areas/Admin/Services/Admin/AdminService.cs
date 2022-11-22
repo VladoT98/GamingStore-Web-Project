@@ -4,6 +4,7 @@ using GamingStore.Data;
 using GamingStore.Infrastructure.Enums;
 using GamingStore.Services.Games;
 using GamingStore.Services.Reviews.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GamingStore.Areas.Admin.Services.Admin
 {
@@ -46,11 +47,17 @@ namespace GamingStore.Areas.Admin.Services.Admin
             return result;
         }
 
-        public async Task ApproveGame(int id)
+        public async Task<bool> ApproveGame(int id)
         {
-            var game = data.Games.Find(id);
+            var game = await data.Games.FindAsync(id);
+
+            if (game == null) return false;
+
             game.IsApproved = true;
+
             await data.SaveChangesAsync();
+
+            return true;
         }
     }
 }

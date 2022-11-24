@@ -2,7 +2,7 @@
 {
     <ul class="pagination justify-content-center">
         <li class="page-item @(!Model.HasPreviousPage ? "d-none" : string.Empty)">
-            <a class="page-link text-bold hover"
+            <a class="page-link"
            asp-action="@(Model.IsAdmin ? "AdminGames": "All")"
            asp-route-currentPage="@Model.PreviousPageNumber"
            asp-route-searchByTitle="@Model.SearchByTitle"
@@ -16,7 +16,7 @@
             if (i > 0)
             {
                 <li class="page-item">
-                    <a class="page-link hover"
+                    <a class="page-link"
            asp-action="@(Model.IsAdmin ? "AdminGames": "All")"
            asp-route-currentPage="@i"
            asp-route-searchByTitle="@Model.SearchByTitle"
@@ -36,7 +36,7 @@
             if (i <= Model.PagesCount)
             {
                 <li class="page-item">
-                    <a class="page-link hover"
+                    <a class="page-link"
            asp-action="@(Model.IsAdmin ? "AdminGames": "All")"
            asp-route-currentPage="@i"
            asp-route-searchByTitle="@Model.SearchByTitle"
@@ -48,7 +48,7 @@
         }
 
         <li class="page-item @(!Model.HasNextPage ? "d-none" : string.Empty)">
-            <a class="page-link text-bold hover"
+            <a class="page-link"
            asp-action="@(Model.IsAdmin ? "AdminGames": "All")"
            asp-route-currentPage="@Model.NextPageNumber"
            asp-route-searchByTitle="@Model.SearchByTitle"

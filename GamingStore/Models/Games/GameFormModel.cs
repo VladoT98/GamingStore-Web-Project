@@ -19,6 +19,11 @@ namespace GamingStore.Models.Games
         [Url]
         public string ImageUrl { get; init; }
 
+        [Display(Name = "Trailer URL")]
+        [Required]
+        [Url]
+        public string TrailerUrl { get; init; }
+
         [Range(1998, 2022)]
         [Display(Name = "Release Year")]
         public int ReleaseYear { get; init; }

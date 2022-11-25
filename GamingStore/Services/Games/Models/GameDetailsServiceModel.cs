@@ -14,6 +14,8 @@ namespace GamingStore.Services.Games.Models
 
         public string SellerName { get; init; }
 
+        public string TrailerUrl { get; set; }
+
         public string UserId { get; init; }
 
         public int GenreId { get; init; }

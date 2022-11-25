@@ -54,6 +54,7 @@ namespace GamingStore.Services.Games
             gameToEdit.Price = gameModel.Price;
             gameToEdit.Description = gameModel.Description;
             gameToEdit.ImageUrl = gameModel.ImageUrl;
+            gameToEdit.TrailerUrl = gameModel.TrailerUrl;
             gameToEdit.ReleaseYear = gameModel.ReleaseYear;
             gameToEdit.IsCrossPlay = gameModel.IsCrossPlay == "Yes";
             gameToEdit.PublisherId = await this.GetPublisherId(gameModel.PublisherName);

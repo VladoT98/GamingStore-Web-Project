@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
         <h5 class="text-center">by @Model.PublisherName</h5>
-        <h2 class="text-green text-center">@(Model.Price == 0 || Model.Price == null ? "Free": $"Price: {Model.Price}$")</h2>
+        <h2 class="text-center text-success">@(Model.Price == 0 || Model.Price == null ? "Free": $"Price: {Model.Price}$")</h2>
         <img src="@Model.ImageUrl" width="960" height="540" class="mt-2 mb-2" />
         <div>
             <h5><b>Genre:</b> @Model.GenreName</h5>
@@ -14,5 +14,15 @@
             <h5><b>Cross Play:</b> @Model.IsCrossPlay</h5>
             <p align="justify"><b>Description</b>: @Model.Description</p>
         </div>
+
+        <div class="card-header text-center mb-3">
+            <p class="h1">Game Trailer</p>
+        </div>
+        <iframe style="display: block; margin: 0 auto;"
+                width="600"
+                height="350"
+                src="@Model.TrailerUrl"
+                frameborder="0">
+        </iframe>
     </div>
 </div>

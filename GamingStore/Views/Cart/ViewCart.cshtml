@@ -27,7 +27,7 @@ else
                     <tr>
                         <td><img src="@item.Game.ImageUrl" height="65" width="110" /></td>
                         <td><h5 class="mt-3">@item.Game.Title</h5></td>
-                        <td><h5 class="mt-2 text-green">@(item.Game.Price == 0 || item.Game.Price == null ? "Free" : $"{item.Game.Price}$")</h5></td>
+                        <td><h5 class="mt-2 text-success">@(item.Game.Price == 0 || item.Game.Price == null ? "Free" : $"{item.Game.Price}$")</h5></td>
                         <td>
                             <a class="btn btn-outline-danger float-right mt-2"
                        asp-controller="Cart"
@@ -40,7 +40,7 @@ else
         </table>
     </div>
 
-    <h1 class="text-center mt-3 text-green">Total: @Model.TotalPrice$</h1>
+    <h1 class="text-center mt-3 text-danger">Total: @Model.TotalPrice$</h1>
     <div class="col text-center">
         <a class="btn btn-success text-center mt-2 col-8" asp-controller="Cart" asp-action="Checkout">Checkout</a>
     </div>

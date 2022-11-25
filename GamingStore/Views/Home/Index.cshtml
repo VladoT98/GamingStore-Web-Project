@@ -51,7 +51,7 @@
                     <img src="@game.ImageUrl" style="width: 100%">
                     <h4 class="mt-3">@game.Title</h4>
                     <p>by @game.PublisherName</p>
-                    <p>@(game.Price == 0 || game.Price == null ? "Free" : $"Price: {game.Price}$")</p>
+                    <p class="text-success">@(game.Price == 0 || game.Price == null ? "Free" : $"Price: {game.Price}$")</p>
                     <a class="btn btn-info"
                    asp-controller="Games"
                    asp-action="Details"

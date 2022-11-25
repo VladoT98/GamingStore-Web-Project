@@ -19,8 +19,8 @@ else
             <div class="col-md-6 form-group">
                 <h2>@game.Title</h2>
                 <span>by <b>@game.PublisherName</b></span> <br />
-                <span class="mt-1"><b class="text-cyan">Reviews: </b>@game.ReviewsCount</span>
-                <h5 class="text-green mt-2">@(game.Price == 0 || game.Price == null ? "Free" : $"Price: {game.Price}$")</h5>
+                <span class="mt-1"><b>Reviews: </b>@game.ReviewsCount</span>
+                <h5 class="mt-2 text-success">@(game.Price == 0 || game.Price == null ? "Free" : $"Price: {game.Price}$")</h5>
                 <a class="btn btn-outline-info mt-3"
            asp-controller="Games"
            asp-action="Details"

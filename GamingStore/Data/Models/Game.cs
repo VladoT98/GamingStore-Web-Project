@@ -15,6 +15,9 @@ namespace GamingStore.Data.Models
         [Required]
         public string ImageUrl { get; set; }
 
+        [Required]
+        public string TrailerUrl { get; set; }
+
         public string Description { get; set; }
 
         public int ReleaseYear { get; set; }
@@ -37,6 +40,6 @@ namespace GamingStore.Data.Models
 
         public virtual IEnumerable<GameReview> Reviews { get; set; } = new HashSet<GameReview>();
 
-        public virtual IEnumerable<Platform> Platforms{ get; set; } = new HashSet<Platform>();
+        public virtual IEnumerable<Platform> Platforms { get; set; } = new HashSet<Platform>();
     }
 }

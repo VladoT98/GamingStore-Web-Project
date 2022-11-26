@@ -13,7 +13,7 @@ namespace GamingStore.Areas.Admin.Models
         public string SearchByPhoneNumber { get; init; }
 
         [Display(Name = "Order By")]
-        public UserSorting Sorting { get; set; }
+        public UserSorting Sorting { get; init; }
 
         public IEnumerable<UserViewModel> Users { get; init; }
     }

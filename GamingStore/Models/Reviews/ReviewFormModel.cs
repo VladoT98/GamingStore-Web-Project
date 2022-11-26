@@ -4,10 +4,6 @@ namespace GamingStore.Models.Reviews
 {
     public class ReviewFormModel
     {
-        [Required]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "The name should be between 5 and 20 characters long.")]
-        public string From { get; init; }
-
         [Display(Name = "Image URL")]
         [Url]
         public string? ImageUrl { get; init; }

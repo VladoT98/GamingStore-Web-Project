@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net.Mail;
+using AutoMapper;
 using GamingStore.Data;
 using GamingStore.Data.Models;
 using GamingStore.Models.Reviews;
@@ -20,12 +21,16 @@ namespace GamingStore.Services.Reviews
         public async Task Add(ReviewFormModel reviewModel, string userId)
         {
             var review = this.mapper.Map<GameReview>(reviewModel);
+
+            var user = await this.data.Users.FindAsync(userId);
+            var username = user.Email.Substring(0, user.Email.IndexOf('@'));
+
+            review.From = username;
             review.UserId = userId;
 
             if (string.IsNullOrEmpty(review.ImageUrl))
             {
-                review.ImageUrl =
-                    "https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6";
+                review.ImageUrl = "https://bit.ly/3U7uG1t";
             }
 
             this.data.GameReviews.Add(review);
@@ -44,9 +49,8 @@ namespace GamingStore.Services.Reviews
 
             if (reviewToEdit == null) return false;
 
-            reviewToEdit.From = reviewFormModel.From;
             reviewToEdit.Content = reviewFormModel.Content;
-            reviewToEdit.ImageUrl = reviewFormModel.ImageUrl;
+            reviewToEdit.ImageUrl = reviewFormModel.ImageUrl ?? "https://bit.ly/3U7uG1t";
 
             await this.data.SaveChangesAsync();
 
@@ -78,5 +82,8 @@ namespace GamingStore.Services.Reviews
 
             return await reviews.CountAsync();
         }
+
+        public async Task<bool> IsAllowedToReview(string userId, int gameId)
+         => !await this.data.GameReviews.AnyAsync(x => x.UserId == userId && x.GameId == gameId);
     }
 }

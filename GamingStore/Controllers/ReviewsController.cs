@@ -37,6 +37,13 @@ namespace GamingStore.Controllers
 
             if (!ModelState.IsValid) return View(reviewFormModel);
 
+            if (!await this.reviewService.IsAllowedToReview(User.Id(), id))
+            {
+                TempData["GlobalMessageKey"] = "You already reviewed this game.";
+
+                return RedirectToAction(nameof(GamesController.Details), "Games", new { id, isMyGames = false });
+            }
+
             await this.reviewService.Add(reviewFormModel, User.Id());
 
             TempData["GlobalMessageKey"] = "Your review was added successfully.";

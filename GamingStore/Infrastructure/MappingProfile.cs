@@ -7,6 +7,7 @@ using GamingStore.Models.Reviews;
 using GamingStore.Models.Sellers;
 using GamingStore.Services.Games.Models;
 using GamingStore.Services.Reviews.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace GamingStore.Infrastructure
 {
@@ -40,6 +41,7 @@ namespace GamingStore.Infrastructure
             CreateMap<RegisterPublisherFormModel, Publisher>();
             CreateMap<BlogFormModel, Blog>().ReverseMap();
             CreateMap<Blog, BlogViewModel>();
+            CreateMap<IdentityUser, UserViewModel>();
         }
     }
 }

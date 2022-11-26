@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using AutoMapper;
+﻿using AutoMapper;
 using GamingStore.Data;
 using GamingStore.Data.Models;
 using GamingStore.Models.Reviews;
@@ -62,26 +61,6 @@ namespace GamingStore.Services.Reviews
 
         public async Task<GameReview> FindById(int reviewId)
             => await this.data.GameReviews.FindAsync(reviewId);
-
-        public async Task<int> ReviewsCount(string gameTitle, string username)
-        {
-            if (string.IsNullOrEmpty(gameTitle) && string.IsNullOrEmpty(username))
-            {
-                return await this.data.GameReviews.CountAsync();
-            }
-
-            var reviews = this.data.Games.AsQueryable();
-
-            if (gameTitle != null)
-                reviews = reviews
-                    .Where(x => x.Title.ToLower().Contains(gameTitle.ToLower()));
-
-            if (username != null)
-                reviews = reviews
-                    .Where(x => x.Publisher.Name.ToLower().Contains(username.ToLower()));
-
-            return await reviews.CountAsync();
-        }
 
         public async Task<bool> IsAllowedToReview(string userId, int gameId)
          => !await this.data.GameReviews.AnyAsync(x => x.UserId == userId && x.GameId == gameId);

@@ -1,0 +1,75 @@
+﻿@model UserSearchViewModel
+
+@{
+    ViewData["Title"] = "Users Panel";
+}
+
+<h1 class="text-center mb-3">Users Panel</h1>
+
+<form method="get" class="ml-3">
+    <div class="row">
+        <div class="form-group mr-2">
+            <label asp-for="SearchByEmail"></label>
+            <input asp-for="SearchByEmail" class="form-control mb-2" placeholder="user@gmail.com...">
+            <input type="submit" class="btn btn-primary mb-3 mt-2" value="Submit" />
+        </div>
+
+        <div class="form-group mr-2">
+            <label asp-for="SearchByPhoneNumber"></label>
+            <input asp-for="SearchByPhoneNumber" class="form-control mb-2" placeholder="+111 11 111 1111">
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Sorting"></label>
+            <select asp-for="Sorting" class="form-control mb-4 mr-5">
+                <option value="0">Recently Registered</option>
+                <option value="1">First Registered</option>
+                <option value="2">Email Ascending</option>
+                <option value="3">Email Descending</option>
+                <option value="4">Has Phone Number</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+@if (!Model.Users.Any())
+{
+    <h1 class="text-center">No users found.</h1>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">UserId</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Email</td>
+                    <td>@(user.PhoneNumber != null ? $"{user.PhoneNumber}" : "Not registered")</td>
+                    <td>
+                        @if (user.Id != "071f7eea-1f76-48a8-850e-8f1b41039988")
+                        {
+                            <a class="btn btn-danger float-right mr-2"
+                   onclick="return confirm('Are you sure you want to remove the user?')"
+                   asp-controller="Admin"
+                   asp-action="DeleteUser"
+                   asp-route-userId="@user.Id">Remove</a>
+                        }
+                        else
+                        {
+                            <span class="float-right mr-4 text-info">ADMIN</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

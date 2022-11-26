@@ -75,8 +75,7 @@ namespace GamingStore.Services.Games
 
         public async Task<GameSearchViewModel> GetFullGameDetails(string searchByTitle, string publisher, GameSorting sorting, int currentPage, int gamesPerPage, bool isAdmin, bool isMyGames, string userId)
         {
-            var games = await this
-                .GetFilteredGames(searchByTitle, publisher, sorting, currentPage, gamesPerPage, isAdmin, isMyGames, userId);
+            var games = await this.GetFilteredGames(searchByTitle, publisher, sorting, currentPage, gamesPerPage, isAdmin, isMyGames, userId);
 
             var publishers = this.data.Publishers
                 .Select(x => x.Name);

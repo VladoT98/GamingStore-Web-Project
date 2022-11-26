@@ -15,8 +15,6 @@ namespace GamingStore.Services.Reviews
 
         Task<GameReview> FindById(int reviewId);
 
-        Task<int> ReviewsCount(string gameTitle, string username);
-
         Task<bool> IsAllowedToReview(string userId, int gameId);
     }
 }

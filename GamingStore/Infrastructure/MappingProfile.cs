@@ -35,7 +35,6 @@ namespace GamingStore.Infrastructure
                 .ForMember(x => x.Game, cfg =>
                     cfg.MapFrom(x => x.Game.Title));
 
-            CreateMap<Publisher, GamePublisherServiceModel>();
             CreateMap<Platform, GamePlatformServiceModel>();
             CreateMap<Genre, GameGenreServiceModel>();
             CreateMap<RegisterPublisherFormModel, Publisher>();

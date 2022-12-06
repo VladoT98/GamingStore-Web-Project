@@ -1,5 +1,5 @@
 ﻿using GamingStore.Infrastructure.Extensions;
-using GamingStore.Models.ShoppingCart;
+using GamingStore.Models.Games;
 using GamingStore.Services.Games;
 
 namespace GamingStore.Services.ShoppingCart
@@ -11,37 +11,32 @@ namespace GamingStore.Services.ShoppingCart
         public CartService(IGameService gameService)
             => this.gameService = gameService;
 
-        public List<CartItemViewModel> GetCartItems(int id, ISession session)
+        public List<GameBaseModel> AddToCart(int id, ISession session)
         {
-            List<CartItemViewModel> cart = null;
+            var game = this.gameService.FindById(id);
 
-            if (session.GetObjectFromJson<List<CartItemViewModel>>("cart") == null)
+            if (game == null) return null;
+
+            var cart = session.GetObjectFromJson<List<GameBaseModel>>("cart");
+
+            if (cart == null) cart = new List<GameBaseModel>();
+
+            cart.Add(new GameBaseModel
             {
-                cart = new List<CartItemViewModel>();
-                this.AddGameToCart(id, cart);
-            }
-            else
-            {
-                cart = session.GetObjectFromJson<List<CartItemViewModel>>("cart");
-                var index = this.IsGameInCart(cart, id);
-                if (index != -1) cart[index].Quantity++;
-                else this.AddGameToCart(id, cart);
-            }
+                Id = id,
+                Title = game.Title,
+                ImageUrl = game.ImageUrl,
+                Price = game.Price
+            });
 
             return cart;
         }
 
-        private void AddGameToCart(int id, List<CartItemViewModel> cart)
-        {
-            var game = this.gameService.FindById(id);
-            cart.Add(new CartItemViewModel { Game = game, Quantity = 1 });
-        }
-
-        public int IsGameInCart(List<CartItemViewModel> cart, int id)
+        public int IsGameInCart(List<GameBaseModel> cart, int id)
         {
             for (int i = 0; i < cart.Count; i++)
             {
-                if (cart[i].Game.Id.Equals(id)) return i;
+                if (cart[i].Id.Equals(id)) return i;
             }
 
             return -1;

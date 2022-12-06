@@ -1,4 +1,5 @@
 ﻿using GamingStore.Infrastructure.Extensions;
+using GamingStore.Models.Games;
 using GamingStore.Models.ShoppingCart;
 using GamingStore.Services.Games;
 using GamingStore.Services.ShoppingCart;
@@ -21,7 +22,9 @@ namespace GamingStore.Controllers
         [Authorize]
         public IActionResult Add(int id, bool directAdd)
         {
-            var cart = this.cartService.GetCartItems(id, HttpContext.Session);
+            var cart = this.cartService.AddToCart(id, HttpContext.Session);
+
+            if (cart == null) return BadRequest();
 
             HttpContext.Session.SetObjectAsJson("cart", cart);
 
@@ -45,7 +48,7 @@ namespace GamingStore.Controllers
 
             if (game == null) return BadRequest();
 
-            var cart = this.cartService.GetCartItems(id, HttpContext.Session);
+            var cart = HttpContext.Session.GetObjectFromJson<List<GameBaseModel>>("cart");
 
             int index = this.cartService.IsGameInCart(cart, id);
 
@@ -63,13 +66,13 @@ namespace GamingStore.Controllers
         [Authorize]
         public IActionResult ViewCart()
         {
-            var items = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("cart");
+            var cart = HttpContext.Session.GetObjectFromJson<List<GameBaseModel>>("cart");
 
-            var gamesInCart = new GamesInCartViewModel { Items = items };
+            var gamesInCart = new GamesInCartViewModel { Items = cart };
 
-            if (items != null)
+            if (cart != null)
             {
-                var price = items.Sum(x => x.Game.Price * x.Quantity);
+                var price = cart.Sum(x => x.Price);
                 gamesInCart.TotalPrice = price ?? 0m;
             }
 

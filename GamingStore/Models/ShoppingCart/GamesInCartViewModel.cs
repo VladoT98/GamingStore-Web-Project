@@ -1,9 +1,11 @@
-﻿namespace GamingStore.Models.ShoppingCart
+﻿using GamingStore.Models.Games;
+
+namespace GamingStore.Models.ShoppingCart
 {
     public class GamesInCartViewModel
     {
         public decimal TotalPrice { get; set; }
 
-        public List<CartItemViewModel> Items { get; init; }
+        public List<GameBaseModel> Items { get; init; }
     }
 }

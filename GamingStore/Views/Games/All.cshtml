@@ -1,4 +1,5 @@
-﻿@model GameSearchViewModel
+﻿@using GamingStore.Infrastructure.Extensions
+@model GameSearchViewModel
 
 @{
     ViewData["Title"] = "All Games";
@@ -26,7 +27,7 @@ else
            asp-action="Details"
            asp-route-id="@game.Id"
            asp-route-isMyGames="@ViewBag.IsMyGames">Details</a>
-                @if (!ViewBag.IsMyGames)
+                @if (!ViewBag.IsMyGames && !User.IsAdmin())
                 {
                     <a class="btn btn-success mt-3"
            asp-controller="Cart"

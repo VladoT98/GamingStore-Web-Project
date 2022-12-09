@@ -1,7 +1,6 @@
 using GamingStore.Areas.Admin.Services.Admin;
 using GamingStore.Areas.Admin.Services.Blogs;
 using GamingStore.Data;
-using GamingStore.Infrastructure.Extensions;
 using GamingStore.Services.Games;
 using GamingStore.Services.Home;
 using GamingStore.Services.Publishers;
@@ -9,6 +8,7 @@ using GamingStore.Services.Reviews;
 using GamingStore.Services.Sellers;
 using GamingStore.Services.ShoppingCart;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +25,11 @@ namespace GamingStore
 
             builder.Services.AddDbContext<GamingStoreDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+            });
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -62,8 +67,7 @@ namespace GamingStore
             if (app.Environment.IsDevelopment()) app.UseDeveloperExceptionPage().UseMigrationsEndPoint();
             else app.UseExceptionHandler("/Home/Error").UseHsts();
 
-            app.PrepareDatabase();
-
+            app.UseRequestLocalization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

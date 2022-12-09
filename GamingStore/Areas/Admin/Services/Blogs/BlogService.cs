@@ -18,43 +18,45 @@ namespace GamingStore.Areas.Admin.Services.Blogs
             this.mapper = mapper;
         }
 
-        public async Task CreateBlog(BlogFormModel model)
+        public async Task Create(BlogFormModel model)
         {
-            var blog = mapper.Map<Blog>(model);
+            var blog = this.mapper.Map<Blog>(model);
 
             await data.Blogs.AddAsync(blog);
+
             await data.SaveChangesAsync();
         }
 
         public async Task Delete(int id)
         {
-            var blog = await data.Blogs.FindAsync(id);
+            var blog = await this.data.Blogs.FindAsync(id);
 
-            data.Blogs.Remove(blog);
-            await data.SaveChangesAsync();
+            this.data.Blogs.Remove(blog);
+
+            await this.data.SaveChangesAsync();
         }
 
         public async Task Edit(BlogFormModel model, int id)
         {
-            var blog = await data.Blogs.FindAsync(id);
+            var blog = await this.data.Blogs.FindAsync(id);
 
             blog.Title = model.Title;
             blog.ImageUrl = model.ImageUrl;
             blog.Content = model.Content;
 
-            await data.SaveChangesAsync();
+            await this.data.SaveChangesAsync();
         }
 
         public async Task<Blog> FindById(int id)
-            => await data.Blogs.FindAsync(id);
+            => await this.data.Blogs.FindAsync(id);
 
         public async Task<int> BlogsCount(string title)
             => string.IsNullOrEmpty(title)
-                ? await data.Blogs.CountAsync()
-                : await data.Blogs.CountAsync(x => x.Title.ToLower().Contains(title.ToLower()));
+                ? await this.data.Blogs.CountAsync()
+                : await this.data.Blogs.CountAsync(x => x.Title.ToLower().Contains(title.ToLower()));
 
         public async Task<IEnumerable<BlogViewModel>> GetAll()
-            => await data.Blogs
+            => await this.data.Blogs
                 .ProjectTo<BlogViewModel>(mapper.ConfigurationProvider)
                 .ToListAsync();
     }

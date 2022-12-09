@@ -1,5 +1,6 @@
 ﻿using GamingStore.Data;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using GamingStore.Areas.Admin.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -28,13 +29,12 @@ namespace GamingStore.Services.Home
 
             if (newArrivals == null)
             {
-                var games = await this.data.Games
+                newArrivals = await this.data.Games
                     .Where(x => x.IsApproved)
                     .OrderByDescending(x => x.Id)
                     .Take(3)
+                    .ProjectTo<GameBaseModel>(this.mapper.ConfigurationProvider)
                     .ToListAsync();
-
-                newArrivals = this.mapper.Map<List<GameBaseModel>>(games);
 
                 var cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
@@ -53,12 +53,11 @@ namespace GamingStore.Services.Home
 
             if (blogPosts == null)
             {
-                var blogs = await this.data.Blogs
-                    .OrderByDescending(x => x.Id)
-                    .Take(3)
-                    .ToListAsync();
-
-                blogPosts = this.mapper.Map<List<BlogViewModel>>(blogs);
+                blogPosts = await this.data.Blogs
+                   .OrderByDescending(x => x.Id)
+                   .Take(3)
+                   .ProjectTo<BlogViewModel>(this.mapper.ConfigurationProvider)
+                   .ToListAsync();
 
                 var cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(1));

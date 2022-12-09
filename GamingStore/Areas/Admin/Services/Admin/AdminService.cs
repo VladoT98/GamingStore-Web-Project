@@ -42,13 +42,13 @@ namespace GamingStore.Areas.Admin.Services.Admin
             var reviews = await reviewsQuery
                 .Skip((currentPage - 1) * reviewsPerPage)
                 .Take(reviewsPerPage)
-                .ProjectTo<ReviewServiceModel>(mapper.ConfigurationProvider)
+                .ProjectTo<ReviewServiceModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return reviews;
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetUsersInfo(string email, string phoneNumber, UserSorting sorting, int currentPage, int reviewsPerPage)
+        public async Task<IEnumerable<UserViewModel>> GetUsersInfo(string email, string phoneNumber, UserSorting sorting, int currentPage, int usersPerPage)
         {
             var usersQuery = this.data.Users.AsQueryable();
 
@@ -71,9 +71,9 @@ namespace GamingStore.Areas.Admin.Services.Admin
             };
 
             var users = await usersQuery
-                .Skip((currentPage - 1) * reviewsPerPage)
-                .Take(reviewsPerPage)
-                .ProjectTo<UserViewModel>(mapper.ConfigurationProvider)
+                .Skip((currentPage - 1) * usersPerPage)
+                .Take(usersPerPage)
+                .ProjectTo<UserViewModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return users;
@@ -110,15 +110,15 @@ namespace GamingStore.Areas.Admin.Services.Admin
                 return await this.data.GameReviews.CountAsync();
             }
 
-            var reviews = this.data.Games.AsQueryable();
+            var reviews = this.data.GameReviews.AsQueryable();
 
             if (gameTitle != null)
                 reviews = reviews
-                    .Where(x => x.Title.ToLower().Contains(gameTitle.ToLower()));
+                    .Where(x => x.Game.Title.ToLower().Contains(gameTitle.ToLower()));
 
             if (username != null)
                 reviews = reviews
-                    .Where(x => x.Publisher.Name.ToLower().Contains(username.ToLower()));
+                    .Where(x => x.From.ToLower().Contains(username.ToLower()));
 
             return await reviews.CountAsync();
         }
@@ -139,12 +139,15 @@ namespace GamingStore.Areas.Admin.Services.Admin
         public async Task<bool> DeleteUser(string userId)
         {
             var user = await this.data.Users.FindAsync(userId);
+
             var seller = await this.data.Sellers.FirstOrDefaultAsync(x => x.UserId == userId);
 
-            if (user == null || seller == null) return false;
+            if (user == null) return false;
 
-            this.data.Sellers.Remove(seller);
+            if (seller != null) this.data.Sellers.Remove(seller);
+
             this.data.Users.Remove(user);
+
             await this.data.SaveChangesAsync();
 
             return true;

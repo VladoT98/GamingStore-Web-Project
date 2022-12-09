@@ -26,7 +26,7 @@ namespace GamingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BlogFormModel model)
         {
-            await this.blogService.CreateBlog(model);
+            await this.blogService.Create(model);
             return RedirectToAction(nameof(AdminController.AdminBlogs), "Admin");
         }
 

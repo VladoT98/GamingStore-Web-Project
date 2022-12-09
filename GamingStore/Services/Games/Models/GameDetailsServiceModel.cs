@@ -4,6 +4,8 @@ namespace GamingStore.Services.Games.Models
 {
     public class GameDetailsServiceModel : GameServiceModel
     {
+        public int Id { get; init; }
+
         public int ReleaseYear { get; init; }
 
         public string IsCrossPlay { get; init; }

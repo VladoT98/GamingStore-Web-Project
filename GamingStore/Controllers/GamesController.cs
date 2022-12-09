@@ -103,8 +103,6 @@ namespace GamingStore.Controllers
             if (!await this.gameService.IsPlatformExist(gameFormModel))
                 ModelState.AddModelError(nameof(gameFormModel.PlatformId), "Invalid platform.");
 
-            var test = ModelState.Values.ToList();
-
             if (!ModelState.IsValid)
             {
                 gameFormModel.Genres = await this.gameService.GameGenres();

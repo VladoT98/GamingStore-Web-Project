@@ -5,7 +5,7 @@ namespace GamingStore.Areas.Admin.Services.Blogs
 {
     public interface IBlogService
     {
-        Task CreateBlog(BlogFormModel model);
+        Task Create(BlogFormModel model);
 
         Task Delete(int id);
 

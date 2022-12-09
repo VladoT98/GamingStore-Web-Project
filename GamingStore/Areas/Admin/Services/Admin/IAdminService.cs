@@ -9,7 +9,7 @@ namespace GamingStore.Areas.Admin.Services.Admin
         Task<IEnumerable<ReviewServiceModel>> GetReviewsInfo(string username, string game, ReviewSorting sorting, int currentPage, int reviewsPerPage);
 
         Task<IEnumerable<UserViewModel>> GetUsersInfo(string email, string phoneNumber, UserSorting sorting,
-            int currentPage, int reviewsPerPage);
+            int currentPage, int usersPerPage);
 
         Task<int> UsersCount(string email, string phoneNumber, UserSorting sorting);
 

@@ -4,18 +4,22 @@ namespace GamingStore.Infrastructure
 {
     public interface IDataSeeder
     {
-        public Task SeedPlatforms(GamingStoreDbContext data);
+        public void SeedPlatforms(GamingStoreDbContext data);
 
-        public Task SeedPublishers(GamingStoreDbContext data);
+        public void SeedPublishers(GamingStoreDbContext data);
 
-        public Task SeedGenres(GamingStoreDbContext data);
+        public void SeedGenres(GamingStoreDbContext data);
 
-        public Task SeedSellers(GamingStoreDbContext data);
+        public void SeedUser(GamingStoreDbContext data);
 
-        public Task SeedGames(GamingStoreDbContext data);
+        public void SeedSellers(GamingStoreDbContext data);
 
-        public Task SeedReviews(GamingStoreDbContext data);
+        public void SeedGames(GamingStoreDbContext data);
 
-        public Task SeedAdministrator(IServiceProvider services);
+        public void SeedReviews(GamingStoreDbContext data);
+
+        public void SeedBlogPosts(GamingStoreDbContext data);
+
+        public void SeedAdministrator(IServiceProvider services);
     }
 }

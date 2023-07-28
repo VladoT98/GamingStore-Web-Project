@@ -4,20 +4,29 @@
     ViewData["Title"] = "All Blog Posts";
 }
 
-@foreach (var blog in Model)
+@if (!Model.Any())
 {
-    <div class="mt-2" style="width: 800px; margin: 0 auto;">
-        <div class="card">
-            <div class="card-header text-center">
-                <h4 class="mt-3">
-                    <a class="text-dark" asp-controller="Blogs"
-                       asp-action="Details"
-                       asp-route-id="@blog.Id">@blog.Title</a>
-                </h4>
-            </div>
-            <div class="card-body">
-                <img src="@blog.ImageUrl" width="500" height="250" class="rounded mx-auto d-block" />
+    <h1>No blog posts available!</h1>
+}
+else
+{
+    <h1 class="text-center mb-3">Gaming Blogs</h1>
+
+    @foreach (var blog in Model)
+    {
+        <div class="mt-2" style="width: 800px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4 class="mt-3">
+                        <a class="text-dark" asp-controller="Blogs"
+                           asp-action="Details"
+                           asp-route-id="@blog.Id">@blog.Title</a>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <img src="@blog.ImageUrl" width="500" height="250" class="rounded mx-auto d-block" />
+                </div>
             </div>
         </div>
-    </div>
+    }
 }

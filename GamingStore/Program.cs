@@ -68,7 +68,7 @@ namespace GamingStore
             if (app.Environment.IsDevelopment()) app.UseDeveloperExceptionPage().UseMigrationsEndPoint();
             else app.UseExceptionHandler("/Home/Error").UseHsts();
 
-            //app.PrepareDatabase();
+            app.PrepareDatabase();
 
             app.UseRequestLocalization();
             app.UseHttpsRedirection();

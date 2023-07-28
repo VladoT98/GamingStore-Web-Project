@@ -39,7 +39,5 @@ namespace GamingStore.Data.Models
         public virtual Seller Seller { get; init; }
 
         public virtual IEnumerable<GameReview> Reviews { get; set; } = new HashSet<GameReview>();
-
-        public virtual IEnumerable<Platform> Platforms { get; set; } = new HashSet<Platform>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GamingStore.Data;
+using GamingStore.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GamingStore.Infrastructure.Extensions
@@ -10,7 +11,7 @@ namespace GamingStore.Infrastructure.Extensions
         static ApplicationBuilderExtensions()
             => seeder = new DataSeeder();
 
-        public static async Task<IApplicationBuilder> PrepareDatabase(this IApplicationBuilder app)
+        public static IApplicationBuilder PrepareDatabase(this IApplicationBuilder app)
         {
             using var scopedServices = app.ApplicationServices.CreateScope();
 
@@ -18,15 +19,17 @@ namespace GamingStore.Infrastructure.Extensions
 
             var data = scopedServices.ServiceProvider.GetService<GamingStoreDbContext>();
 
-            await data.Database.MigrateAsync();
+            data.Database.Migrate();
 
-            //await seeder.SeedPlatforms(data);
-            //await seeder.SeedPublishers(data);
-            //await seeder.SeedGenres(data);
-            //await seeder.SeedSellers(data);
-            //await seeder.SeedGames(data);
-            //await seeder.SeedReviews(data);
-            //await seeder.SeedAdministrator(services);
+            seeder.SeedPlatforms(data);
+            seeder.SeedPublishers(data);
+            seeder.SeedGenres(data);
+            seeder.SeedUser(data);
+            seeder.SeedSellers(data);
+            seeder.SeedGames(data);
+            seeder.SeedReviews(data);
+            seeder.SeedBlogPosts(data);
+            seeder.SeedAdministrator(services);
 
             return app;
         }

@@ -9,7 +9,7 @@ namespace GamingStore.Models.Sellers
         public string Name { get; init; }
 
         [Required]
-        [RegularExpression(@"[+][0-9]{3} [0-9]{2} [0-9]{3} [0-9]{3}",
+        [RegularExpression(@"^\+\d{3}\s\d{2}\s\d{3}\s\d{4}$",
             ErrorMessage = "Phone number must be in format +111 11 111 1111")]
         public string PhoneNumber { get; init; }
     }

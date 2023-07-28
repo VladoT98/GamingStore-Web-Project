@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 using GamingStore.Data;
 using GamingStore.Services.Games.Models;
 using Microsoft.AspNetCore.Mvc;

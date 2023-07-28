@@ -1,6 +1,7 @@
 using GamingStore.Areas.Admin.Services.Admin;
 using GamingStore.Areas.Admin.Services.Blogs;
 using GamingStore.Data;
+using GamingStore.Infrastructure.Extensions;
 using GamingStore.Services.Games;
 using GamingStore.Services.Home;
 using GamingStore.Services.Publishers;
@@ -62,10 +63,12 @@ namespace GamingStore
             builder.Services.AddTransient<IBlogService, BlogService>();
 
             var app = builder.Build();
-
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment()) app.UseDeveloperExceptionPage().UseMigrationsEndPoint();
             else app.UseExceptionHandler("/Home/Error").UseHsts();
+
+            //app.PrepareDatabase();
 
             app.UseRequestLocalization();
             app.UseHttpsRedirection();

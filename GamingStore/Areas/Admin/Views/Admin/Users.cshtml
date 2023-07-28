@@ -55,13 +55,13 @@ else
                     <td>@user.Email</td>
                     <td>@(user.PhoneNumber != null ? $"{user.PhoneNumber}" : "Not registered")</td>
                     <td>
-                        @if (user.Id != "071f7eea-1f76-48a8-850e-8f1b41039988")
+                        @if (user.Email != "admin@gmail.com")
                         {
                             <a class="btn btn-danger float-right mr-2"
-                   onclick="return confirm('Are you sure you want to remove the user?')"
-                   asp-controller="Admin"
-                   asp-action="DeleteUser"
-                   asp-route-userId="@user.Id">Remove</a>
+                               onclick="return confirm('Are you sure you want to remove the user?')"
+                               asp-controller="Admin"
+                               asp-action="DeleteUser"
+                               asp-route-userId="@user.Id">Remove</a>
                         }
                         else
                         {
